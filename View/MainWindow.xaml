@@ -1,0 +1,33 @@
+﻿<Window x:Class="MVVM_Clock.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MVVM_Clock"
+        xmlns:vm="clr-namespace:MVVM_Clock.ViewModel"
+        mc:Ignorable="d"
+        Title="{Binding Title}" Height="200" Width="400">
+
+    <Window.Resources>
+        <vm:ClockViewModel x:Key="ClockViewModel"/>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="35"/>
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+    </Window.Resources>
+
+    <Window.DataContext>
+        <StaticResourceExtension ResourceKey="ClockViewModel"/>
+    </Window.DataContext>
+
+    <Grid Background="Black" DataContext="{Binding Source={StaticResource ClockViewModel}}">
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="{Binding Clock.Hour, Mode=TwoWay, StringFormat={}{0:00}}"/>
+            <TextBlock Text=":"/>
+            <TextBlock Text="{Binding Clock.Minute, Mode=TwoWay, StringFormat={}{0:00}}"/>
+            <TextBlock Text=":"/>
+            <TextBlock Text="{Binding Clock.Second, Mode=TwoWay, StringFormat={}{0:00}}"/>
+        </StackPanel>
+    </Grid>
+</Window>
